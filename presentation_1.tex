@@ -1,0 +1,1316 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass[9pt]{beamer}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{comment}
+\usepackage{subfig}
+\usepackage{svg}
+%\usepackage{subcaption}
+\usepackage{mwe}
+\usepackage{enumitem}
+\usepackage{selinput}
+\usepackage[export]{adjustbox}
+\usepackage[most]{tcolorbox}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{varwidth}   %% provides varwidth environment
+\usepackage{tcolorbox}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{comment}
+\usepackage{caption}
+\captionsetup[figure]{labelformat=empty}
+\usepackage{pdfpages}
+\usepackage{setspace}
+\usepackage{enumitem}
+
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{xparse}
+\usepackage{tikz}
+\usetikzlibrary{calc,decorations.pathreplacing}
+
+\newcommand{\tikzmark}[1]{%
+	\tikz[overlay,remember picture,baseline] \node [anchor=base] (#1) {};}
+
+\NewDocumentCommand\LeftBrace{%
+	O{}% #1 = draw options
+	O{0pt}% #2 = shift to be applied (optional, for use with nested braces)
+	m% #3 = top \tikzmark name
+	m% #4 = bottom \tikzmark name
+	m% #5 = node text
+}{%
+	\begin{tikzpicture}[overlay,remember picture,baseline]
+	\coordinate (Top Start of Bracket)    at ([shift={(#2-12pt,3pt)}]#3.north east);
+	\coordinate (Bottom Start of Bracket) at ([shift={(#2-12pt,2pt)}]#4.south east);
+	
+	\draw[decorate,decoration={brace,raise=6pt, amplitude=1.0ex, mirror}, ultra thick, #1] 
+	(Top Start of Bracket) --
+	node[xshift=-10pt, align=left, anchor=east, #1] {#5} 
+	(Bottom Start of Bracket);
+	\end{tikzpicture}    
+}
+\NewDocumentCommand\RightBrace{%
+	O{}% #1 = draw options
+	O{0pt}% #2 = shift to be applied (optional, for use with nested braces)
+	m% #3 = top \tikzmark name
+	m% #4 = bottom \tikzmark name
+	m% #5 = right most \tikzmark name
+	m% #6 = node text
+}{%
+	\begin{tikzpicture}[overlay,remember picture,baseline]
+	\coordinate (Top Start of Bracket)    at ($(#5)!([yshift=3pt]#3.north)!(#5)$);
+	\coordinate (Bottom Start of Bracket) at ($(#5)!([yshift=3pt]#4.south)!(#5)$);
+	
+	\draw[decorate,decoration={brace,raise=6pt, amplitude=1.0ex, mirror}, ultra thick, #1] 
+	([xshift=#2]Bottom Start of Bracket) --
+	node[xshift=10pt, align=left, anchor=west, #1] {#6} 
+	([xshift=#2]Top Start of Bracket);
+	\end{tikzpicture}    
+}
+
+
+\newcommand*{\BracektStubSize}{0.5em}%
+\NewDocumentCommand\LeftBracket{%
+	O{}% #1 = draw options
+	O{0pt}% #2 = shift to be applied (optional, for use with nested braces)
+	m% #3 = top \tikzmark name
+	m% #4 = bottom \tikzmark name
+	m% #5 = node text
+}{%
+	\begin{tikzpicture}[overlay,remember picture,baseline]
+	\coordinate (Top Start of Bracket) at ([shift={(#2-15pt,5pt)}]#3.north east);
+	\coordinate (Bottom Start of Bracket) at ([shift={(#2-15pt,2pt)}]#4.south east);
+	\draw[ultra thick, #1] 
+	(Top Start of Bracket) --++(-\BracektStubSize,0) 
+	|-(Bottom Start of Bracket) ;
+	
+	\node[xshift=-5pt, align=left, anchor=east, #1]
+	at ($(Bottom Start of Bracket)!0.5!(Top Start of Bracket)$) {#5};
+	\end{tikzpicture}    
+}
+\NewDocumentCommand\RightBracket{%
+	O{}% #1 = draw options
+	O{0pt}% #2 = shift to be applied (optional, for use with nested braces)
+	m% #3 = top \tikzmark name
+	m% #4 = bottom \tikzmark name
+	m% #5 = right most \tikzmark name
+	m% #6 = node text
+}{%
+	\begin{tikzpicture}[overlay,remember picture,baseline]
+	\coordinate (Top Start of Bracket)    at ($(#5)!([yshift=3pt]#3.north)!(#5)$);
+	\coordinate (Bottom Start of Bracket) at ($(#5)!([yshift=3pt]#4.south)!(#5)$);
+	
+	\draw[ultra thick, #1] 
+	([xshift=#2]Bottom Start of Bracket) -- ++(\BracektStubSize,0) 
+	|- ([xshift=#2]Top Start of Bracket) ;
+	
+	\node[xshift=10pt, align=left, anchor=west, #1]
+	at ($(Bottom Start of Bracket)!0.5!(Top Start of Bracket)$) 
+	{#6};
+	\end{tikzpicture}    
+}
+
+\SetLabelAlign{parright}{\strut\smash{\parbox[t]{\labelwidth}{\raggedleft#1}}}
+
+
+\definecolor{mycolor}{rgb}{0.122, 0.435, 0.698}
+
+\newtcbox{\mybox}{nobeforeafter,colframe=mycolor,colback=mycolor!10!white,boxrule=0.5pt,arc=4pt,
+	boxsep=0pt,left=6pt,right=6pt,top=6pt,bottom=6pt,tcbox raise base}
+
+
+
+\usetikzlibrary{calc}
+\tcbuselibrary{skins}
+\usefonttheme{serif} % default family is serif
+\captionsetup[subfigure]{labelformat=empty}
+
+\definecolor{pbblue}{HTML}{0A75A8}% color for the progress bar and the circle
+
+% Custom Commands
+\newcommand{\SubItem}[1]{
+	{\setlength\itemindent{15pt} \item[\color{green}\textbullet] #1}
+}
+\newcommand{\SubItemBlue}[1]{
+	{\setlength\itemindent{15pt} \item[\color{blue}\textbullet] #1}
+}
+\newcommand{\SubItemGray}[1]{
+	{\setlength\itemindent{15pt} \item[\color{gray}\textbullet] #1}
+}
+\newcommand{\SubItemWhite}[1]{
+	{\setlength\itemindent{15pt} \item[\color{white}\textbullet] #1}
+}
+
+
+\newcolumntype{Y}{>{\raggedleft\arraybackslash}X}
+\newcolumntype{Z}{>{\raggedleft\arraybackslash}X}
+\tcbset{tab1/.style={fonttitle=\bfseries\large,fontupper=\normalsize\sffamily,
+		colback=yellow!10!white,colframe=red!75!black,colbacktitle=Salmon!40!white,
+		coltitle=black,center title,freelance,frame code={
+			\foreach \n in {north east,north west,south east,south west}
+			{\path [fill=red!75!black] (interior.\n) circle (3mm); };},}}
+\tcbset{tab2/.style={enhanced,fonttitle=\bfseries,fontupper=\normalsize\sffamily,
+		colback=yellow!10!white,colframe=red!50!black,colbacktitle=red!40!white,
+		coltitle=black,center title}}
+
+\tcbset{tab3/.style={enhanced,fonttitle=\bfseries,fontupper=\small\sffamily,
+		colback=yellow!10!white,colframe=red!50!black,colbacktitle=red!40!white,
+		coltitle=black,center title}}
+
+
+
+
+
+
+% Custom addition to theme
+%\logo{\includegraphics[height=0.7cm,right]{./images/logo.jpg}}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[text line]{CONFIDENTIAL \hfill }
+%\titlegraphic{\vspace{65pt}\hspace{-45pt}\includegraphics[width=3.2cm,height=1.1cm, left]{./images/utah_state.png}}
+%\titlegraphic{\vspace{65pt}\hspace{-45pt}\includegraphics[width=3.2cm,height=1.1cm,right]{./images/wpi.png}}
+
+
+\titlegraphic{%\
+	\vspace{30pt}
+	\makebox[0.95\paperwidth]{%
+		\includegraphics[width=4cm,keepaspectratio]{./images/utah_state.png}%
+		\hfill%
+		\includegraphics[width=3.5cm,keepaspectratio]{./images/wpi.png}%
+	}%
+}
+
+
+\newcommand{\eat}[1]{}
+
+
+
+
+\mode<presentation> {
+\usetheme{Madrid}
+\usecolortheme{beaver}
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+% Remove Footer navigation
+\setbeamertemplate{footline}
+{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=.4\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+			\usebeamerfont{author in head/foot}\insertshortauthor
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.6\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+			\usebeamerfont{title in head/foot}\insertshorttitle\hspace*{3em}
+			\insertframenumber{} / \inserttotalframenumber\hspace*{1ex}
+	\end{beamercolorbox}}%
+	\vskip0pt%
+}
+
+\title[Predicting Highly Rated Crowdfunded Products]{Predicting Highly Rated Crowdfunded Products} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+
+\author[Vishal Sharma]{\textbf{Vishal Sharma}, Kyumin Lee}
+\institute[USU] 
+{
+\small{Utah State University, Worcester Polytechnic Institute} \\ 
+\small {USA}
+}
+
+% Date, can be changed to a custom date
+%\date{\fontsize{9pt}{skip}\today}
+
+\date{\footnotesize IEEE/ACM ASONAM \\ August, 2018}
+
+
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Presentation Outline} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+
+
+
+
+
+
+
+\section{Introduction}
+\subsection{Crowdfunding}
+
+
+
+
+
+
+
+
+\begin{frame}
+\frametitle{What is Crowdfunding?}
+\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+	%	\item{Use Machine Learning: \textbf{Convolution Neural Nets}}
+	%	\item{Train machine to identify such patterns.}
+	\vspace{10pt}
+	\item{Crowdfunding is also know as \textit{Online funding} or \textit{peer-to-peer fundraising}}
+	\item{Raising funds with collective effort from public}
+	
+	
+	%	\item{Usually happens over the internet.}
+	\vspace{1pt}
+	\begin{columns}[T] % align columns
+		\begin{column}{.38\textwidth}
+			\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+				\item{A few facts about Crowdfunding:}
+				\SubItem{Kickstarter is the most popular, 150th most visited website}
+				\SubItem{Kickstarter reportedly has a success rate of about 45\%}
+			\end{itemize}	
+
+			
+		\end{column}%
+		\hfill%
+		
+		
+		\begin{column}{.5\textwidth}
+			\begin{figure}
+				\raggedright
+				\subfloat[\footnotesize{}]{%
+					\includegraphics[height=3.5cm, width=6cm]{./image_2/crowd_2.jpg} %
+				}
+			\end{figure}
+		\end{column}%
+		
+	\end{columns}
+\end{itemize}
+\end{frame}
+
+
+
+
+
+
+\begin{comment}
+\begin{frame}
+\frametitle{Investment in Crowdfunding}
+\begin{itemize}
+	\item{Every year investment is at least double of last year (2012-2015)}
+\end{itemize}
+\begin{figure}
+	\subfloat[\footnotesize{}]{%
+		\includegraphics[height=6.5cm, width=9cm]{./image_2/stats.png} %
+	}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Crowdfunding Platforms}
+\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+%	\item{Use Machine Learning: \textbf{Convolution Neural Nets}}
+%	\item{Train machine to identify such patterns.}
+	\vspace{10pt}
+
+	\item{Types of Crowdfunding:}
+%	\item{Usually happens over the internet.}
+	\vspace{1pt}
+	\begin{columns}[T] % align columns
+		\begin{column}{.38\textwidth}
+			\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+				\SubItemGray{Reward-based}
+				\SubItemGray{Equity}
+				\SubItemGray{Debt-based}
+				\SubItemGray{Donation-based}		
+
+			\end{itemize}	
+		\vspace{15pt}
+			\begin{figure}
+				\raggedright
+				\subfloat[\footnotesize{}]{%
+					\includegraphics[height=2.5cm, width=5cm]{./image_2/platforms.png} %
+				}
+			\end{figure}
+		\end{column}%
+	\hfill%
+	
+	
+	 	\begin{column}{.58\textwidth}
+
+			\vspace{-25pt}
+			\begin{figure}
+			\raggedright
+			\subfloat[\footnotesize{}]{%
+				\includegraphics[height=5cm, width=7.2cm]{./image_2/types_2.png} %
+			}
+			\end{figure}
+	\end{column}%
+	
+\end{columns}
+\end{itemize}
+\end{frame}
+\end{comment}
+
+
+
+
+
+\begin{comment}
+
+\begin{frame}
+\frametitle{Machine Learning (ML) vs Deep Learning (DL)}
+
+\begin{columns}[T] % align columns
+	\hspace{10pt}
+	\begin{column}{.25\textwidth}
+		\vspace{5pt}
+		\begin{tcolorbox}[tab2,tabularx={X|X},title=ML vs DL, boxrule=0.8pt, width=6cm]
+			ML &  DL \\ \hline
+			\footnotesize Requires manual feature extraction & \footnotesize Can automatically learn features from data  \\ 
+			
+			\footnotesize Computationally not very expensive & \footnotesize Computationally heavily expensive \\ 
+			
+			\footnotesize Does outperform DL but limited tasks & \footnotesize Outperforms traditional ML in \textbf{most} tasks. \\ 
+			
+			\footnotesize Usually require less data & \footnotesize Requires large data for good performance.  \\ 
+			\footnotesize \textbf{ImageNet} 75\% accuracy until 2011 & \footnotesize \textbf{ImageNet} with improvement of 8\% in 2012 \\
+			
+		\end{tcolorbox}
+		
+	\end{column}%
+	
+	\hfill%
+	\hspace{90pt}
+	\begin{column}{.65\textwidth}
+		\vspace{-30pt}
+		\begin{figure}
+			\centering
+			\includegraphics[height=2.9cm, width=5.4cm]{./images/ml_dl_4.jpg} %
+		\end{figure}
+		
+		\begin{figure}
+			\centering
+			\includegraphics[height=2.9cm, width=5.8cm]{./images/ml_dl_3.jpg} %
+		\end{figure}
+	\end{column}%
+\end{columns}
+\end{frame}
+
+\end{comment}
+
+
+
+
+
+
+
+\subsection{Stages of Crowdfunding}
+\begin{frame}
+\frametitle{Stages of Crowdfunding on Kickstarter}
+
+
+	\begin{description}[leftmargin=!, labelwidth=1.75cm, align=right]
+		\item[Stage 1]
+		\item[\textcolor{blue}{\textbullet}] \tikzmark{Mark A}Launch product idea on Crowdfunding website\hfill \\
+		\item[\textcolor{blue}{\textbullet}] \tikzmark{Mark B}Raise money from public\tikzmark{Right Most Node}\hfill \\
+		\item[Stage 2]
+		\item[\textcolor{blue}{\textbullet}] \tikzmark{Mark C.1}End of fundrasing\hfill \\
+		\item[\textcolor{blue}{\textbullet}] \tikzmark{Mark C}Deliver rewards \hfill \\
+		\item[Stage 3]
+		\item[\textcolor{blue}{\textbullet}] \tikzmark{Mark D}Move product to production \hfil \\
+	\end{description}
+
+	\RightBrace[orange][85pt]{Mark A}{Mark C}{Right Most Node}{Funding Phase}
+	\RightBracket[white][90pt]{Mark D}{Mark D}{Right Most Node}{\textcolor{orange} {\hspace{85pt}Production Phase}}
+
+	\begin{figure}
+		\centering
+		\includegraphics[height=3cm, width=12cm]{./images/KickstarterTimeLine2.pdf} %
+		\caption{Stages of Crowdfunding}
+	\end{figure}
+
+
+\end{frame}
+
+
+
+\begin{comment}
+\begin{frame}
+\frametitle{Related Work}
+\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+	\item{In literature, Kickstarter project success prediction has been studied widely}
+	\SubItemBlue{\small Chung et. al. HT, 2015; Etter et. al. COSN 2013; Mitra et. al. CSCW, 2014}
+	\item{Analyzing factors affecting a projects success}
+	\SubItemBlue{\small Xu. et. al. CHI 2014; Tran. et. al. CoRR, 2016}
+	\item{Recommendation of projects to backers and investors }
+	\SubItemBlue{\small An. et.al WWW, 2014; Rakesh et.al. WSDM, 2016; Rakesh et. al. ICWSM, 2015}
+	\item{Rewards delivery delay}
+	\SubItemBlue{\small T. Tran et. al. ASONAM 2017, Y. Kim et. al. CSCW, 2017}
+	
+	\item{Previous studies are limited to understanding projects during funding phase}
+	\vspace{10pt}
+	\item{\textcolor{red} {No study about \textit{Production Phase}}}
+
+\end{itemize}
+
+\vspace{10pt}
+\centering
+\textcolor{green} {Our work analyzes quality of crowdfunded products in market.}
+
+\vspace{10pt}
+\centering
+\textcolor{white}{Why is it important ?}
+
+\end{frame}
+\end{comment}
+
+
+
+\begin{frame}
+\frametitle{Related Work}
+\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+	\item{In literature, Kickstarter project success prediction has been studied widely}
+	\SubItemBlue{\small Chung et. al. HT, 2015; Etter et. al. COSN 2013; Mitra et. al. CSCW, 2014}
+	\item[\textcolor{white}{\textbullet}]{\textcolor{white} {Analyzing factors affecting a projects success}}
+	\SubItemWhite{\small \textcolor{white} {Xu. et. al. CHI 2014; Tran. et. al. CoRR, 2016}}
+	\item[\textcolor{white}{\textbullet}]{\textcolor{white} {Recommendation of projects to backers and investors }}
+	\SubItemWhite{\small \textcolor{white} {An. et.al WWW, 2014; Rakesh et.al. WSDM, 2016; Rakesh et. al. ICWSM, 2015}}
+	\item[\textcolor{white}{\textbullet}]{\textcolor{white} {Rewards delivery delay}}
+	\SubItemWhite{\small \textcolor{white} {T. Tran et. al. ASONAM 2017, Y. Kim et. al. CSCW, 2017}}
+	
+	\item[\textcolor{white}{\textbullet}]{\textcolor{white} {Previous studies are limited to understanding projects during funding phase}}
+	\vspace{10pt}
+	\item[\textcolor{white}{\textbullet}]{\textcolor{white} {No study about \textit{Production Phase}}}
+	
+\end{itemize}
+
+\vspace{10pt}
+\centering
+\textcolor{white} {Our work analyzes quality of crowdfunded products in market.}
+
+\vspace{10pt}
+\centering
+\textcolor{white}{Why is it important ?}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+	\frametitle{Related Work}
+	\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+		\item{In literature, Kickstarter project success prediction has been studied widely}
+		\SubItemBlue{\small Chung et. al. HT, 2015; Etter et. al. COSN 2013; Mitra et. al. CSCW, 2014}
+		\item{ {Analyzing factors affecting a projects success}}
+		\SubItemBlue{\small {Xu. et. al. CHI 2014; Tran. et. al. CoRR, 2016}}
+		\item[\textcolor{white}{\textbullet}]{\textcolor{white} {Recommendation of projects to backers and investors }}
+		\SubItemWhite{\small \textcolor{white} {An. et.al WWW, 2014; Rakesh et.al. WSDM, 2016; Rakesh et. al. ICWSM, 2015}}
+		\item[\textcolor{white}{\textbullet}]{\textcolor{white} {Rewards delivery delay}}
+		\SubItemWhite{\small \textcolor{white} {T. Tran et. al. ASONAM 2017, Y. Kim et. al. CSCW, 2017}}
+		
+		\item[\textcolor{white}{\textbullet}]{\textcolor{white} {Previous studies are limited to understanding projects during funding phase}}
+		\vspace{10pt}
+		\item[\textcolor{white}{\textbullet}]{\textcolor{white} {No study about \textit{Production Phase}}}
+		
+	\end{itemize}
+	
+	\vspace{10pt}
+	\centering
+	\textcolor{white} {Our work analyzes quality of crowdfunded products in market.}
+	
+	\vspace{10pt}
+	\centering
+	\textcolor{white}{Why is it important ?}
+	
+\end{frame}
+
+
+
+\begin{frame}
+	\frametitle{Related Work}
+	\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+		\item{In literature, Kickstarter project success prediction has been studied widely}
+		\SubItemBlue{\small Chung et. al. HT, 2015; Etter et. al. COSN 2013; Mitra et. al. CSCW, 2014}
+		\item{ {Analyzing factors affecting a projects success}}
+		\SubItemBlue{\small {Xu. et. al. CHI 2014; Tran. et. al. CoRR, 2016}}
+		\item{ {Recommendation of projects to backers }}
+		\SubItemBlue{\small {An. et.al WWW, 2014; Rakesh et.al. WSDM, 2016; Rakesh et. al. ICWSM, 2015}}
+		\item[\textcolor{white}{\textbullet}]{\textcolor{white} {Rewards delivery delay}}
+		\SubItemWhite{\small \textcolor{white} {T. Tran et. al. ASONAM 2017, Y. Kim et. al. CSCW, 2017}}
+		
+		\item[\textcolor{white}{\textbullet}]{\textcolor{white} {Previous studies are limited to understanding projects during funding phase}}
+		\vspace{10pt}
+		\item[\textcolor{white}{\textbullet}]{\textcolor{white} {No study about \textit{Production Phase}}}
+		
+	\end{itemize}
+	
+	\vspace{10pt}
+	\centering
+	\textcolor{white} {Our work analyzes quality of crowdfunded products in market.}
+	
+	\vspace{10pt}
+	\centering
+	\textcolor{white}{Why is it important ?}
+	
+\end{frame}
+
+
+
+
+\begin{frame}
+	\frametitle{Related Work}
+	\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+		\item{In literature, Kickstarter project success prediction has been studied widely}
+		\SubItemBlue{\small Chung et. al. HT, 2015; Etter et. al. COSN 2013; Mitra et. al. CSCW, 2014}
+		\item{ {Analyzing factors affecting a projects success}}
+		\SubItemBlue{\small {Xu. et. al. CHI 2014; Tran. et. al. CoRR, 2016}}
+		\item{ {Recommendation of projects to backers }}
+		\SubItemBlue{\small {An. et.al WWW, 2014; Rakesh et.al. WSDM, 2016; Rakesh et. al. ICWSM, 2015}}
+		\item{Rewards delivery delay}
+		\SubItemBlue{\small T. Tran et. al. ASONAM 2017, Y. Kim et. al. CSCW, 2017}
+		
+ 		\item[\textcolor{white}{\textbullet}]{\textcolor{white} {Previous studies are limited to understanding projects during funding phase}}
+		\vspace{10pt}
+		\item[\textcolor{white}{\textbullet}]{\textcolor{white} {No study about \textit{Production Phase}}}
+		
+	\end{itemize}
+	
+	\vspace{10pt}
+	\centering
+	\textcolor{white} {Our work analyzes quality of crowdfunded products in market.}
+	
+	\vspace{10pt}
+	\centering
+	\textcolor{white}{Why is it important ?}
+	
+\end{frame}
+
+
+
+\begin{frame}
+	\frametitle{Related Work}
+	\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+		\item{In literature, Kickstarter project success prediction has been studied widely}
+		\SubItemBlue{\small Chung et. al. HT, 2015; Etter et. al. COSN 2013; Mitra et. al. CSCW, 2014}
+		\item{ {Analyzing factors affecting a projects success}}
+		\SubItemBlue{\small {Xu. et. al. CHI 2014; Tran. et. al. CoRR, 2016}}
+		\item{ {Recommendation of projects to backers  }}
+		\SubItemBlue{\small {An. et.al WWW, 2014; Rakesh et.al. WSDM, 2016; Rakesh et. al. ICWSM, 2015}}
+		\item{Rewards delivery delay}
+		\SubItemBlue{\small T. Tran et. al. ASONAM 2017, Y. Kim et. al. CSCW, 2017}
+		
+		\item {Previous studies are limited to understanding projects during funding phase}
+		\vspace{10pt}
+		
+	\end{itemize}
+	\centering
+	No study about \textit{Production Phase}
+	
+	\vspace{10pt}
+	\centering
+	\textcolor{green} {Our work analyzes quality of crowdfunded products in market.}
+	
+	\vspace{10pt}
+	\centering
+	\textcolor{white}{Why is it important ?}
+	
+\end{frame}
+
+
+
+
+\begin{frame}
+	\frametitle{Related Work}
+	\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+		\item{In literature, Kickstarter project success prediction has been studied widely}
+		\SubItemBlue{\small Chung et. al. HT, 2015; Etter et. al. COSN 2013; Mitra et. al. CSCW, 2014}
+		\item{ {Analyzing factors affecting a projects success}}
+		\SubItemBlue{\small {Xu. et. al. CHI 2014; Tran. et. al. CoRR, 2016}}
+		\item{ {Recommendation of projects to backers }}
+		\SubItemBlue{\small {An. et.al WWW, 2014; Rakesh et.al. WSDM, 2016; Rakesh et. al. ICWSM, 2015}}
+		\item{Rewards delivery delay}
+		\SubItemBlue{\small T. Tran et. al. ASONAM 2017, Y. Kim et. al. CSCW, 2017}
+		
+		\item {Previous studies are limited to understanding projects during funding phase}
+		\vspace{10pt}
+		
+	\end{itemize}
+	\centering
+	 No study about \textit{Production Phase}
+	
+	\vspace{10pt}
+	\centering
+	\textcolor{green} {Our work analyzes quality of crowdfunded products in market.}
+	
+	\vspace{10pt}
+	\centering
+	\textcolor{blue}{Why is it important ?}
+	
+\end{frame}
+
+
+
+\subsection{Motivation}
+
+\begin{comment}
+\begin{frame}
+\frametitle{Ex 1: Example of Unsuccessful Products on Amazon }
+\begin{columns}
+	\begin{column}{.40\textwidth} {\textbf{Jellyfish Art: Aquarium}}
+		
+		\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+			\item{\small Raised 12 times}
+			\item{\small Amazon rating 2.5}
+		\end{itemize}
+	\end{column}		
+	
+	\begin{column}{.50\textwidth} 
+		\includegraphics[width=6cm, height=7cm]{./image_2/jelly.png}
+	\end{column}				
+\end{columns}
+\end{frame}
+\end{comment}
+
+
+\begin{frame}
+\frametitle{Ex 1: Example of Unsuccessful Products on Amazon }
+\begin{columns}
+	\begin{column}{.40\textwidth}  {\textbf{MyKronoz smart watch}}
+		
+		\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+			\item{\small Raised 500 times more money than goal}
+			\item{\small Amazon rating 3.0}
+		\end{itemize}
+	\end{column}		
+	
+	\begin{column}{.50\textwidth} 
+		\includegraphics[width=6cm, height=7cm]{./image_2/watch.png}
+	\end{column}				
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Ex 2: Example of Unsuccessful Products on Amazon }
+\begin{columns}
+	\begin{column}{.40\textwidth} {\textbf{Pebblebee: finder}}
+		
+		\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+			\item{\small Raised 11 times more money than goal}
+			\item{\small Amazon rating 2.9}
+		\end{itemize}
+	\end{column}		
+	
+	\begin{column}{.50\textwidth} 
+		\includegraphics[width=6cm, height=7cm]{./image_2/pebblebee.png}
+	\end{column}				
+\end{columns}
+\end{frame}
+
+
+\begin{comment}
+\begin{frame}
+\frametitle{Ex 4: Examples of Unsuccessful Products on Amazon }
+\begin{columns}
+	\begin{column}{.40\textwidth} {\textbf{Beam Smart Projector}}
+		
+		\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+			\item{\small Amazon rating 2.9}
+			\item{\small Raised 4 times}
+		\end{itemize}
+	\end{column}		
+	
+	\begin{column}{.50\textwidth} 
+		\includegraphics[width=6cm, height=7cm]{./image_2/beam.png}
+	\end{column}				
+\end{columns}
+\end{frame}
+\end{comment}
+
+
+
+
+
+
+\subsection{Research Objectives}	
+
+
+\begin{frame}
+	\frametitle{Research Objectives}
+	\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+		\item{Dataset: To analyze this problem, we collect dataset from Kickstarter and Amazon}
+		\item[\textcolor{white}{\textbullet}]{\textcolor{white}{RO1: We compare crowdfunded projects with traditional amazon products}}
+		\item[\textcolor{white}{\textbullet}]{\textcolor{white}{RO2: We analyze characteristics of successful (rating $>$= 4) and unsuccessful products (rating $<$ 4)}}
+		\item[\textcolor{white}{\textbullet}]{\textcolor{white}{RO3: Using machine learning we predict success of Kickstarter products at several stages}}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Research Objectives}
+	\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+		\item{Dataset: To analyze this problem, we collect dataset from Kickstarter and Amazon}
+		\item{RO1: We compare crowdfunded projects with traditional amazon products}
+		\item[\textcolor{white}{\textbullet}]{\textcolor{white}{RO2: We analyze characteristics of successful (rating $>$= 4) and unsuccessful products (rating $<$ 4)}}
+		\item[\textcolor{white}{\textbullet}]{\textcolor{white}{RO3: Using machine learning we predict success of Kickstarter products at several stages}}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Research Objectives}
+	\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+		\item{Dataset: To analyze this problem, we collect dataset from Kickstarter and Amazon}
+		\item{RO1: We compare crowdfunded projects with traditional amazon products}
+		\item{RO2: We analyze characteristics of successful (rating $>$= 4) and unsuccessful products (rating $<$ 4)}
+		\item[\textcolor{white}{\textbullet}]{\textcolor{white} {RO3: Using machine learning we predict success of Kickstarter products at several stages}}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Research Objectives}
+	\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+		\item{Dataset: To analyze this problem, we collect dataset from Kickstarter and Amazon}
+		\item{RO1: We compare crowdfunded projects with traditional amazon products}
+		\item{RO2: We analyze characteristics of successful (rating $>$= 4) and unsuccessful products (rating $<$ 4)}
+		\item{RO3: Using machine learning we predict success of Kickstarter products at several stages}
+	\end{itemize}
+\end{frame}
+
+
+
+
+
+
+
+
+
+\section{RO1: Comparing Launchpad to Traditional products}
+\begin{frame}
+\frametitle{Research Objective 1}
+\centering
+\textcolor{black}{\LARGE \mybox{RO1:  Comparing Launchpad to Traditional products}}
+\end{frame}
+
+
+
+
+\begin{frame}
+	\frametitle{Dataset Collection}	
+	
+	\vspace{5pt}
+	\centering
+	\begin{tcolorbox}[tab2,tabularx={X|X},title=Dataset Description, boxrule=0.8pt, width=6cm]
+		Source & Number \\ \hline
+		\footnotesize Amazon Launchpad & \footnotesize  3,082  \\ 
+		\footnotesize Amazon Kickstarter & \footnotesize 375 \\ 
+		\footnotesize Amazon Dataset & \footnotesize 	82M  \\ 
+	\end{tcolorbox}
+	
+	\vspace{5pt}
+	\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+		\item{Amazon Kickstarter $\subset$ Amazon Launchpad}
+		\item{Amazon Launchpad $\not\subset$ Amazon Dataset}
+	\end{itemize}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Rating Distribution Comparison}
+
+\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+	\item{We analyze rating distribution of traditional and launchpad dataset}
+	%\SubItemBlue{Both Micro and Macro levels}
+	\item{Average Rating Distribution Comparison}
+\end{itemize}
+
+\vspace{10pt}
+\centering
+\begin{tcolorbox}[tab2,tabularx={X|X|X},title=Comparison, boxrule=0.8pt, width=7.8cm]
+\footnotesize	Rating &  \footnotesize Amazon Dataset & \footnotesize Amazon Launchpad \\ \hline
+	\footnotesize 1.0 & \footnotesize 4,265,230 (5.2\%) & \footnotesize 27 (1.2\%) \\
+	\footnotesize 2.0 & \footnotesize 6,712,117 (8.1\%) & \footnotesize 108 (5.1\%)\\
+	\footnotesize 3.0 & \footnotesize 7,049,301 (8.5\%) & \footnotesize 685 (32.4\%)\\
+	\footnotesize 4.0 & \footnotesize 15,480,820 (18.7\%) & \footnotesize 961 (45.4\%) \\
+	\footnotesize 5.0 & \footnotesize 49,169,663 (59.5\%) & \footnotesize 336 (15.9\%)\\ \hline
+	\footnotesize Avg. Rating & \footnotesize 4.2 & \footnotesize 3.7 \\			
+\end{tcolorbox}
+
+\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+	\item{We observe,}
+	\SubItemBlue{Skewed towards 5.0 and 4.0 for Amazon whereas Launchpad products towards 4.0 and 3.0}
+	\SubItemBlue{Avg. rating have a marginal gap of 0.5 (10\%)}
+\end{itemize}
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{Rating Distribution Comparison (Conti.)}
+
+\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+	\item{Average rating distribution w.r.t category}
+	\item{Electronics being lowest of all}
+	\item{Avg. of 9.42\% difference}
+\end{itemize}
+
+\vspace{10pt}
+\centering
+\begin{tcolorbox}[tab2,tabularx={X|Y|Y},title=Comparison, boxrule=0.8pt, width=7.8cm]
+	\footnotesize	Rating &  \footnotesize Amazon Dataset & \footnotesize Amazon Launchpad \\ \hline
+	\footnotesize Electronics & \footnotesize 4.01 & \footnotesize 3.14 \\
+	\footnotesize Toys \& Games & \footnotesize 4.15 & \footnotesize 3.97\\
+	\footnotesize Home \& Kitchen & \footnotesize 4.19 & \footnotesize 3.76\\
+	\footnotesize Beauty \& Personal & \footnotesize 4.15 & \footnotesize 3.77 \\
+	\footnotesize Sports \& Outdoor & \footnotesize 4.18 & \footnotesize 3.85\\ \hline
+	\footnotesize Avg. Rating & \footnotesize 4.14 & \footnotesize 3.75 \\			
+\end{tcolorbox}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Rating Distribution Comparison (Conti.)}
+\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+	\item{Overall we observe there are difference at both level of comparisons}
+	\item{We conclude there are some gaps between both in terms of quality}
+\end{itemize}
+
+\vspace{10pt}
+\centering
+\textcolor{white}{What makes a product successful ?}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Rating Distribution Comparison (Conti.)}
+	\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+		\item{Overall we observe there are difference at both level of comparisons}
+		\item{We conclude there are some gaps between both in terms of quality}
+	\end{itemize}
+	
+	\vspace{10pt}
+	\centering
+	\textcolor{blue}{What makes a product successful ?}
+\end{frame}
+
+\section{RO2: Characteristics of products}
+\begin{frame}
+\frametitle{Research Objective 2}
+\centering
+\textcolor{black}{\LARGE \mybox{RO2: Characteristics of Successful and Unsuccessful products}}
+\end{frame}
+
+
+
+\begin{comment}
+
+
+\begin{frame}
+\frametitle{Properties of successful and unsuccessful products}
+\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+	\item{\textit{Intuitively}: Higher money raised may correlate to success}
+	\item{Analyze correlation between Raised money and Amazon rating}
+\end{itemize}
+	\begin{figure}
+	\centering
+	\includegraphics[height=5cm, width=5cm]{./images/1MkickstarterRatingMoneyRaised.pdf} %
+	\caption{\footnotesize Pledged money and rating of Kickstarter products}
+\end{figure}
+\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+	\item{Pearson correlation between them (-0.08)}
+	\item{Successful raising funds $\neq$ Producing high quality products}
+\end{itemize}
+\end{frame}
+\end{comment}
+
+
+
+\begin{frame}
+\frametitle{Properties of successful and unsuccessful products}
+\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+	\item{Analyze if successful and unsuccessful products have different characteristics}
+\end{itemize}
+\vspace{-10pt}
+
+\begin{columns}[T] % align columns
+	\begin{column}{.38\textwidth}
+		\vspace{30pt}
+		\textcolor{blue}{Observations:}
+		\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+			\item{\small Successful products had less number of FAQs}
+			\item{\small Creators of successful products backed more number of projects}
+			\item{\small Creators of successful products are more active on Facebook and Twitter}			
+			\item{\small Unsuccessful products had 69\% more negative reviews}	
+		\end{itemize}
+	\end{column}
+	
+	
+	\begin{column}{.58\textwidth}
+		\centering
+		\begin{tcolorbox}[tab3,tabularx={X|Y|Y},title=Mean of properties, boxrule=0.8pt, width=\textwidth, code={\singlespacing}]
+			Properties &   Unsuccessful &  Successful \\ \hline
+			pledged money	&    \$528,400        &  \$313,800         \\
+			\text{\textbar}FAQs\text{\textbar}& 7.09&  4.69	\\				
+			\text{\textbar}comments\text{\textbar}&934&1075\\
+			\text{\textbar}images\text{\textbar}&27.1&17.5\\				
+			\text{\textbar}negative comments by backers\text{\textbar}&633&440 \\										
+			\text{\textbar}projects backed by creators\text{\textbar}&20.9&26.6	\\										
+			\text{\textbar}Facebook friends\text{\textbar}&359&773   	\\							
+			\text{\textbar}lists created by creators\text{\textbar}&38&148.2	\\									
+			\text{\textbar}posted tweets\text{\textbar}&696&1,889   	\\						
+			\text{\textbar}tweets liked by creators\text{\textbar}&1,397&1,734       	\\									
+			Product Price on Amazon&\$107&\$83   	\\	
+		\end{tcolorbox}
+	\end{column}
+\end{columns}
+
+\end{frame}
+
+
+
+
+\section{RO3: Modeling}
+\begin{frame}
+\frametitle{Research Objective 3}
+\centering
+\textcolor{black}{\LARGE \mybox{RO3: Building Predictive Model}}
+\end{frame}
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Feature Engineering}
+We split feature engineering process in 4 categories:
+\begin{columns}[T] 
+	\begin{column}{.48\textwidth} {\textbf{Kickstarter Project}}
+		\begin{columns}
+			\begin{column}{.80\textwidth} 
+									
+				\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+					\item{\small project goal, 
+						pledged money, 
+						a percentage of negative comments, 
+						readability scores descriptions etc.}
+				\end{itemize}
+			\end{column}		
+			
+			\begin{column}{.20\textwidth} 
+				\includegraphics[width=1.4cm, height=1.2cm]{./image_2/kick.png}
+			\end{column}				
+		\end{columns}
+	\end{column}
+	
+	
+	\begin{column}{.48\textwidth} {\textbf{Kickstarter Creator}}
+		\begin{columns}
+			\begin{column}{.70\textwidth} 
+				\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+					\item{\small \text{\textbar}created projects\text{\textbar}, \text{\textbar}linked external websites\text{\textbar}, \text{\textbar}backed projects\text{\textbar}, account verified?, \text{\textbar}Facebook friends\text{\textbar}, etc. }
+				\end{itemize}
+			\end{column}		
+			
+			\begin{column}{.30\textwidth} 
+				\includegraphics[width=2cm, height=2cm]{./image_2/creator.png}
+			\end{column}				
+		\end{columns}
+	\end{column}
+\end{columns}
+
+\vspace{10pt}
+
+\begin{columns}[T] % align columns
+	\begin{column}{.48\textwidth} {\textbf{Kickstarter Creator Twitter profile}}
+		\begin{columns}
+			\begin{column}{.80\textwidth} 
+				\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+					\item{\small \text{\textbar}tweets\text{\textbar}, 
+						\text{\textbar}followers\text{\textbar},
+						\text{\textbar}followees\text{\textbar}, 
+						\text{\textbar}favorites and number of lists\text{\textbar}, etc. Missing values were replaced with mean}
+				\end{itemize}
+			\end{column}		
+			
+			\begin{column}{.20\textwidth} 
+				\includegraphics[width=1.5cm, height=1.5cm]{./image_2/twitter.png}
+			\end{column}				
+		\end{columns}
+	\end{column}
+	
+	
+	\begin{column}{.48\textwidth} {\textbf{Amazon Product page}}
+		\begin{columns}
+			\begin{column}{.70\textwidth} 
+				\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+					\item{\small category of the product, 
+						\text{\textbar}images\text{\textbar}, 
+						\text{\textbar}videos\text{\textbar}, 
+						product description length,
+						technical details,
+						similarity b/w title,
+						product rating, etc.}
+				\end{itemize}
+			\end{column}		
+			\begin{column}{.30\textwidth}
+				\raggedright
+				\includegraphics[width=1.5cm, height=1cm]{./image_2/amazon_logo.jpg}
+			\end{column}				
+		\end{columns}
+	\end{column}
+\end{columns}
+\end{frame}
+
+
+
+
+\begin{comment}
+\begin{frame}
+\frametitle{Stages of Modeling}
+\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+	\item{We build model for 3 different stages and also select features w.r.t it}
+\end{itemize}
+
+\begin{figure}
+	\centering
+	\includegraphics[height=3cm, width=12cm]{./images/KickstarterTimeLine2.pdf} %
+	\caption{Stages of Crowdfunding}
+\end{figure}
+
+\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+	\item{Stage 1: When a project is launched on Kickstarter}
+	\item{Stage 2: End of fundraising period}
+	\item{Stage 3: When the project is posted to Amazon}
+\end{itemize}
+\end{frame}
+\end{comment}
+
+
+\begin{frame}
+\frametitle{Experiment and Results}
+
+	\begin{figure}
+		\centering
+		\includegraphics[height=3cm, width=12cm]{./images/KickstarterTimeLine2.pdf} %
+
+	\end{figure}
+
+
+
+\centering
+\begin{tcolorbox}[tab2,tabularx={X|Y|Y|Y},title=Prediction Results (Accuracy), boxrule=0.8pt, width=9cm]
+	\footnotesize	Algorithm &  \footnotesize Stage 1 & \footnotesize Stage 2 & \footnotesize Stage 3 \\ \hline
+	\footnotesize XGBoost & \footnotesize 0.680 & \footnotesize 0.693 & \footnotesize 0.696 \\
+	\footnotesize SVM & \footnotesize 0.712 & \footnotesize 0.712 & \footnotesize 0.723\\
+	\footnotesize Gradient Boosting & \footnotesize 0.714 & \footnotesize 0.728 & \footnotesize 0.720\\
+	\footnotesize AdaBoost & \footnotesize 0.720 & \footnotesize 0.702 & \footnotesize 0.735 \\
+	\footnotesize Random Forest & \footnotesize \textbf{0.723} & \footnotesize \textbf{0.746} & \footnotesize \textbf{0.757}\\ \hline
+	%\footnotesize Avg. Rating & \footnotesize 4.14 & \footnotesize 3.75 \\			
+\end{tcolorbox}
+
+
+
+\end{frame}
+
+
+
+
+
+
+\begin{comment}
+\begin{frame}
+\frametitle{Random Forest Analysis}
+\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+	\item{Most feature importance algorithms do not express (+/-)}
+	\item{Partial Dependence Plot help understand features affecting model (+,-)}
+	\item{We analyze all independent variables and choose 4 affecting the model negatively}
+	\item{\# created projects, \# of followers, \# of rewards, Pledged money}
+\end{itemize}
+\centering
+\includegraphics[width=6.5cm, height=3.5cm]{./images/pdp.pdf}
+
+Removing them and retraining model increased accuracy to 0.761
+\end{frame}
+\end{comment}
+
+
+\section{Conclusion and Future Work}
+\begin{frame}
+\frametitle{Conclusion and Future Work}
+\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+	\item{We observe, Launchpad products on average receive lower ratings on Amazon}
+	\item{We analyzed distinguishing properties of successful and unsuccessful projects}
+	\item{We built models to predict a projects success on Amazon}
+	\item{In future, we plan to expand this work to multiple crowdfunding \& ecommerce websites}	
+	\vspace{20pt}
+	\item{\textbf{Questions}: vishal.sharma@usu.edu}	
+	\item{\textbf{Dataset}: Will be uploaded soon to \\ http://web.cs.wpi.edu/$~$kmlee/data.html}	
+\end{itemize}
+\end{frame}
+
+
+
+
+
+
+
+\begin{comment}
+\begin{frame}
+\frametitle{References}
+
+\tiny{
+\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
+\bibitem[1]{funding} Sean Nevin, Rob Gleasure, Philip O'Reilly, Joseph Feller, Shanping Li, and Jerry Cristoforo. 2017. Social Identity and Social Media Activities in Equity Crowdfunding. In Proceedings of the 13th International Symposium on Open Collaboration (OpenSym '17)
+
+
+\bibitem[2]{prediction_1} Thanh Tran, Kyumin Lee, Nguyen Vo, and Hongkyu Choi. 2017. Identifying On-time Reward Delivery Projects with Estimating Delivery Duration on Kickstarter. In Proceedings of the 2017 IEEE/ACM International Conference on Advances in Social Networks Analysis and Mining 2017 (ASONAM '17)
+
+\bibitem[3]{prediction_2} Jinwook Chung and Kyumin Lee. 2015. A Long-Term Study of a Crowdfunding Platform: Predicting Project Success and Fundraising Amount. In Proceedings of the 26th ACM Conference on Hypertext \& Social Media (HT '15)
+
+\bibitem[4]{prediction_3} Yan Li, Vineeth Rakesh, and Chandan K. Reddy. 2016. Project Success Prediction in Crowdfunding Environments. In Proceedings of the Ninth ACM International Conference on Web Search and Data Mining (WSDM '16)
+
+\bibitem[5]{prediction_4} Vincent Etter, Matthias Grossglauser, and Patrick Thiran. 2013. Launch hard or go home!: predicting the success of kickstarter campaigns. In Proceedings of the first ACM conference on Online social networks (COSN '13)
+
+\bibitem[6]{pdp} Cutler, D. Richard, Thomas C. Edwards, Karen H Beard, Adele Cutler, Kyle T. Hess, Jacob Gibson and Joshua J. Lawler. “Random forests for classification in ecology.” (Ecology 2007)
+
+\end{thebibliography}
+}
+\end{frame}
+\end{comment}
+
+
+
+
+\begin{frame}
+%\Huge{\centerline{The End}}
+\centerline{\includegraphics[width=6cm, height=4cm]{./images/questions.jpg}}
+\end{frame}
+
+
+
+\begin{frame}
+	\frametitle{Feature Analysis}
+	\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+		\item{Random Forest feature selection using mean decrease in Accuracy:}
+	\end{itemize}
+	
+	\centering
+	\begin{tcolorbox}[tab2,tabularx={Y|Y|Y},title=Top 5 Features, boxrule=0.8pt, width=10cm]
+		\footnotesize Stage 1 & \footnotesize Stage 2 & \footnotesize Stage 3 \\ \hline
+		\footnotesize \# of images & \footnotesize \# of creators & \footnotesize \# of creators \\
+		\footnotesize project description length & \footnotesize \# of images & \footnotesize \# of images \\
+		\footnotesize reward desc readability & \footnotesize \# of creators comments & \footnotesize product price on Amazon \\
+		\footnotesize \# of backed projects & \footnotesize pledged money \& goal ratio & \footnotesize \# of superbackers comments \\
+		\footnotesize reward description length & \footnotesize \# of backed Projects & \footnotesize \# of FAQs \\ \hline
+	\end{tcolorbox}
+	
+	
+	\raggedright{Successful projects:}
+	\begin{itemize}[label=\textcolor{blue}{\textbullet}]
+		\item{Were initiated by large number of creators}
+		\item{Got more attention from Superbackers (\# of comments)}
+		\item{Less complicated (less FAQ's, lower price)}
+		
+	\end{itemize}
+\end{frame}
+
+
+
+
+\begin{comment}
+
+%------------------------------------------------
+
+\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+\frametitle{Citation}
+An example of the \verb|\cite| command to cite within the presentation:\\~
+
+This statement requires citation \cite{p1}.
+\end{frame}
+
+%------------------------------------------------
+
+
+
+\begin{frame}
+\frametitle{References}
+
+%\footnotesize{
+%\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
+%\bibitem[Smith, 2012]{p1} John Smith (2012)
+%\newblock Title of the publication
+%\newblock \emph{Journal Name} 12(3), 45 -- 678.
+%\end{thebibliography}
+%}
+Images References:
+\begin{itemize}
+
+\item[-] \footnotesize{
+	\begin{thebibliography}{99}
+		https://sourceforge.net/projects/gann/
+	\end{thebibliography}
+}
+\item[-] \footnotesize{
+	\begin{thebibliography}{99}
+		https://www.digitaltrends.com/cool-tech/what-is-an-artificial-neural-network/
+	\end{thebibliography}
+}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\end{comment}
+
+%\begin{frame}
+%\Huge{\centerline{The End}}
+%\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 
